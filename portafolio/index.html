@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agencia de Diseño Web – viewport</title>
+  <style>
+    :root {
+      --bg: #0f172a;         
+      --panel: #111827ee;    
+      --text: #e5e7eb;        
+      --muted: #9ca3af;       
+      --brand: #50367e;       
+      --brand-2: #22d3ee;    
+      --accent: #000000;      
+      --ok: #10b981;         
+      --danger: #ffffff;      
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% -10%, #1f2937 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 120% 10%, #0b1022 0%, transparent 60%),
+                  linear-gradient(180deg, #0b1022 0%, #0f172a 40%, #0b1022 100%);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; color: inherit; }
+
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;iugucyfx
+    }
+
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.35));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .nav {
+      display: flex; align-items: center; gap: 12px;
+      justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: conic-gradient(from 180deg at 50% 50%, var(--brand), var(--brand-2), var(--accent), var(--brand));
+      box-shadow: inset 0 0 18px rgba(255,255,255,.15), var(--shadow);
+    }
+    .brand h1 { font-size: 18px; letter-spacing: .3px; margin: 0; }
+
+    .nav-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+      cursor: pointer;
+    }
+    .chip:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.25); }
+
+    
+    .hero {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; align-items: center;
+      margin-top: 34px; margin-bottom: 24px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+    .hero-title { font-size: clamp(28px, 4vw, 42px); margin: 0 0 10px; }
+    .hero-sub { color: var(--muted); margin: 0 0 18px; }
+
+    .cta-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .cta {
+      padding: 16px 18px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(124,58,237,.25), rgba(34,211,238,.15));
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      cursor: pointer; transition: transform .15s ease, filter .2s ease, border-color .2s ease;
+    }
+    .cta span { font-weight: 600; letter-spacing: .3px; }
+    .cta svg { width: 20px; height: 20px; }
+    .cta:hover { transform: translateY(-2px); filter: brightness(1.1); border-color: rgba(255,255,255,.3) }
+
+    .profile {
+      aspect-ratio: 1/1; border-radius: var(--radius);
+      background: radial-gradient(120px 120px at 30% 30%, rgba(255,255,255,.15), transparent 60%),
+                  linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(34,211,238,.2));
+      display: grid; place-items: center; font-size: 48px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    
+    .tabs { margin-top: 12px; display: grid; gap: 16px; }
+    .tabbar { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tab-btn {
+      padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      cursor: pointer; transition: background .2s ease, transform .15s ease, border-color .2s ease;
+      font-weight: 600; letter-spacing: .2px;
+    }
+    .tab-btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.25); }
+    .tab-btn.active { background: linear-gradient(180deg, rgba(124,58,237,.35), rgba(34,211,238,.15)); border-color: rgba(255,255,255,.35); }
+
+    .panel {
+      display: none; opacity: 0; transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); box-shadow: var(--shadow);
+      padding: 26px;
+    }
+    .panel.active { display: block; opacity: 1; transform: translateY(0); }
+
+
+    h2 { margin: 0 0 10px; font-size: 22px; }
+    h3 { margin: 14px 0 8px; font-size: 18px; }
+    p { margin: 0 0 12px; }
+    ul { margin: 0 0 12px 18px; padding: 0; }
+    .grid { display: grid; gap: 14px; }
+    .grid.cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.cols-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+
+    .pill { font-size: 12px; padding: 8px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); }
+
+    .project { padding: 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); display: grid; gap: 8px; }
+    .project h3 { margin: 0; font-size: 16px; }
+    .project .meta { font-size: 13px; color: var(--muted); }
+
+    .contact-form { display: grid; gap: 10px; }
+    .field { display: grid; gap: 6px; }
+    .field input, .field textarea {
+      width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14);
+      background: rgba(2,6,23,.6); color: var(--text);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #94a3b8; }
+
+    .btn {
+      padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(180deg, rgba(16,185,129,.25), rgba(124,58,237,.25));
+      cursor: pointer; font-weight: 700; letter-spacing: .3px;
+      transition: transform .15s ease, filter .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.08); border-color: rgba(255,255,255,.3); }
+
+    footer { color: var(--muted); text-align: center; padding: 28px 0 40px; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .grid.cols-2 { grid-template-columns: 1fr; }
+      .grid.cols-3 { grid-template-columns: 1fr; }
+      .cta-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>Agencia de Diseño Web – viewport</h1>
+      </div>
+      <nav class="nav-actions" aria-label="Navegación principal">
+        <button class="chip" data-goto="sobre">Introducción</button>
+        <button class="chip" data-goto="proyectos">Metodología</button>
+        <button class="chip" data-goto="habilidades">Habilidades</button>
+        <button class="chip" data-goto="contacto">Contacto</button>
+        <button class="chip" onclick="window.location.href='1/x.html'">Otro Portafolio</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+  
+    <section class="hero">
+      <div class="card">
+        <h2 class="hero-title">Viewpor <span style="color: var(--brand-2); font-weight: 800;">Agencia Web</span></h2>
+        <p class="hero-sub">Simplicidad, armonía y accesibilidad para posicionar tu marca en la web.</p>
+
+        <div class="cta-grid" aria-label="Accesos rápidos a pestañas">
+          <button class="cta" data-goto="sobre">
+            <span>Introduccinón </span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <button class="cta" data-goto="proyectos">
+            <span>Metodología & Arquitectura</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <button class="cta" data-goto="habilidades">
+            <span>Habilidades & Tecnologías</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <button class="cta" data-goto="contacto">
+            <span>Contacto</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <button class="cta" onclick="window.location.href='otros/portafolio.html'">
+            <span>Ver Otro Portafolio</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="profile" aria-label="Logo/Avatar">💼</div>
+    </section>
+
+    <section class="tabs" aria-live="polite">
+      <div class="tabbar" role="tablist" aria-label="Secciones del portafolio">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-tab="sobre">Introducción</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="proyectos">Metodología</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="habilidades">Habilidades</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="contacto">Contacto</button>
+      </div>
+
+      <article id="tab-sobre" class="panel active" role="tabpanel">
+        <h2>Agencia de Diseño Web – viewport</h2>
+        <p class="meta"><strong>Fecha:</strong> 16 de junio de 2025</p>
+
+        <h3>1. Introducción y Objetivos del Proyecto</h3>
+        <p>
+          El presente informe tiene como finalidad detallar el desarrollo, estructura y contenido del sitio web de la agencia de diseño web <strong>viewport</strong>.
+          Este proyecto nace de la necesidad de contar con una plataforma digital que permita a la agencia mostrar sus capacidades, proyectos realizados y
+          servicios ofrecidos, de manera profesional y atractiva.
+        </p>
+        <p>
+          El objetivo principal es posicionar a <strong>viewport</strong> como una referencia confiable en diseño y desarrollo web, facilitando a los visitantes la
+          comprensión clara de la propuesta de valor y estableciendo canales de comunicación efectivos para generar nuevos negocios.
+        </p>
+
+        <div class="grid cols-2">
+          <div class="project">
+            <h3>Beneficios clave</h3>
+            <ul>
+              <li>Visibilidad y posicionamiento de marca.</li>
+              <li>Comunicación clara de servicios y valor.</li>
+              <li>Captura de leads mediante CTAs efectivas.</li>
+            </ul>
+          </div>
+          <div class="project">
+            <h3>Enfoque</h3>
+            <p class="meta">Centrado en el usuario</p>
+            <p>Diseño moderno, accesible y responsivo, con contenido modular y escalable.</p>
+          </div>
+        </div>
+      </article>
+      <article id="tab-proyectos" class="panel" role="tabpanel">
+        <h2>2. Metodología de Desarrollo</h2>
+        <ul>
+          <li><strong>Recolección de requerimientos:</strong> entrevistas con el equipo de viewport para entender necesidades, público y metas.</li>
+          <li><strong>Diseño UX/UI:</strong> wireframes y prototipos en Figma para validar experiencia y estética.</li>
+          <li><strong>Desarrollo Front-end:</strong> HTML5, CSS3 y JavaScript con foco en compatibilidad y accesibilidad.</li>
+          <li><strong>Pruebas y validación:</strong> dispositivos y navegadores múltiples, correcciones y optimización de rendimiento.</li>
+          <li><strong>Despliegue y monitoreo:</strong> publicación y seguimiento de métricas para mejora continua.</li>
+        </ul>
+        <p>Este proceso colaborativo permitió crear un producto alineado a los objetivos del cliente y enfocado en la satisfacción del usuario final.</p>
+        <h2>3. Arquitectura de la Información</h2>
+        <ul>
+          <li><strong>Inicio:</strong> presentación breve y visualmente atractiva.</li>
+          <li><strong>Sobre Nosotros:</strong> misión, visión y valores con narrativa humana.</li>
+          <li><strong>Habilidades y Tecnologías:</strong> competencias técnicas y creativas.</li>
+          <li><strong>Portafolio de Proyectos:</strong> casos de éxito con imágenes y descripciones.</li>
+          <li><strong>Servicios:</strong> soluciones y beneficios orientados a resultados.</li>
+          <li><strong>Contacto:</strong> formulario, email, teléfono y redes sociales.</li>
+          <li><strong>Blog (planificado):</strong> conocimiento, tendencias y noticias.</li>
+        </ul>
+        <p>La estructura modular permite ampliar el sitio sin perder coherencia ni usabilidad.</p>
+
+        <h2>4. Diseño Visual y Experiencia de Usuario (UX)</h2>
+        <ul>
+          <li><strong>Paleta de colores:</strong> tonos corporativos que transmiten profesionalismo y confianza.</li>
+          <li><strong>Tipografía:</strong> jerarquías claras y legibles.</li>
+          <li><strong>Iconografía:</strong> íconos vectoriales para apoyar la navegación.</li>
+          <li><strong>Imágenes y multimedia:</strong> fotografías y gráficos de alta calidad.</li>
+          <li><strong>Interactividad:</strong> animaciones sutiles y efectos hover no intrusivos.</li>
+          <li><strong>Responsive Design:</strong> adaptación a móviles, tablets y escritorio.</li>
+        </ul>
+        <h2>6. Seguridad y Mantenimiento</h2>
+        <ul>
+          <li><strong>SSL:</strong> HTTPS para confianza y SEO.</li>
+          <li><strong>Backups automáticos:</strong> restauración ante eventualidades.</li>
+          <li><strong>Actualización continua:</strong> mejoras y parches de seguridad.</li>
+          <li><strong>Política de privacidad:</strong> cumplimiento normativo (p. ej., GDPR).</li>
+        </ul>
+
+        <h2>7. Resultados Esperados y Beneficios</h2>
+        <ul>
+          <li>Aumentar visibilidad online y posicionamiento.</li>
+          <li>Generar leads con formularios y llamadas a la acción.</li>
+          <li>Fortalecer la marca con una imagen coherente y profesional.</li>
+          <li>Facilitar el trabajo comercial mostrando capacidades y proyectos.</li>
+          <li>Obtener datos para iterar y mejorar servicios.</li>
+        </ul>
+        <h2>8. Recomendaciones Futuras</h2>
+        <ul>
+          <li>Implementar blog con contenido actualizado.</li>
+          <li>Automatización de marketing (email, CRM).</li>
+          <li>Testimonios y casos de estudio con métricas.</li>
+          <li>Sección de preguntas frecuentes (FAQ).</li>
+          <li>Integración con redes sociales y chat.</li>
+        </ul>
+      </article>
+      <article id="tab-habilidades" class="panel" role="tabpanel">
+        <h2>5. Tecnologías Utilizadas</h2>
+        <div class="grid cols-3">
+          <div class="project">
+            <h3>Base</h3>
+            <p>HTML5 y CSS3 para estructura semántica y estilos modernos.</p>
+          </div>
+          <div class="project">
+            <h3>Interactividad</h3>
+            <p>JavaScript para UI y validaciones sin sobrecargar el rendimiento.</p>
+          </div>
+          <div class="project">
+            <h3>Framework (planificado)</h3>
+            <p>React para componentes reutilizables en futuras expansiones.</p>
+          </div>
+          <div class="project">
+            <h3>Diseño</h3>
+            <p>Figma para diseño/prototipado colaborativo.</p>
+          </div>
+          <div class="project">
+            <h3>DevOps</h3>
+            <p>Git/GitHub para control de versiones.</p>
+          </div>
+          <div class="project">
+            <h3>SEO & Analítica</h3>
+            <p>SEO On-page (meta, ALT, URLs, sitemap), Google Analytics y Search Console.</p>
+          </div>
+        </div>
+      </article>
+      <article id="tab-contacto" class="panel" role="tabpanel">
+        <h2>9. Información de Contacto</h2>
+        <div class="grid cols-2">
+          <div class="project">
+            <h3>Datos</h3>
+            <p><strong>Email:</strong> clase_del_profe_Garlan_Guevara@aucthlok.com</p>
+            <p><strong>Teléfono:</strong> +123 456 7890</p>
+            <p><strong>LinkedIn:</strong> linkedin.com/company/viewport</p>
+            <p><strong>Instagram:</strong> @viewportdesign</p>
+          </div>
+          <div class="project">
+            <h3>Escríbeme</h3>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('¡Gracias! Me pondré en contacto pronto.'); this.reset();">
+              <div class="field">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="tu@correo.com" required />
+              </div>
+              <div class="field">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+              </div>
+              <button class="btn" type="submit">Enviar mensaje</button>
+            </form>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div> Créditos y Derechos a estudiantes de Manuel Bonilla de la clase de Diseño wed</div>
+      <p> Brigitte lópez,
+        Dasany Figueroa,
+        Britney Trochez
+        Oscar Luque ,
+        German Amaya ,
+        Diany Umanzor.</p>
+      <p><small>Clase de Diseño wed impartida por el Docente Garland Dillon Carter Guevara: <time datetime="2025-06-16">16 de junio de 2025</time></small></p>
+      <p><small>Año actual: <span id="year"></span></small></p>
+    </div>
+  </footer>
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const panels = {
+      'sobre': document.getElementById('tab-sobre'),
+      'proyectos': document.getElementById('tab-proyectos'),
+      'habilidades': document.getElementById('tab-habilidades'),
+      'contacto': document.getElementById('tab-contacto')
+    };
+
+    function activateTab(name) {
+      tabButtons.forEach(btn => {
+        const isActive = btn.dataset.tab === name;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', isActive);
+      });
+      Object.entries(panels).forEach(([key, el]) => {
+        const isActive = key === name;
+        el.classList.toggle('active', isActive);
+        el.hidden = !isActive;
+      });
+      history.replaceState(null, '', `#${name}`);
+    }
+    document.querySelectorAll('[data-goto]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-goto');
+        activateTab(target);
+        document.querySelector('.tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    const tabbar = document.querySelector('.tabbar');
+    tabbar?.addEventListener('keydown', (e) => {
+      const focusables = Array.from(tabButtons);
+      const idx = focusables.indexOf(document.activeElement);
+      if (e.key === 'ArrowRight') { e.preventDefault(); (focusables[idx + 1] || focusables[0]).focus(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); (focusables[idx - 1] || focusables.at(-1)).focus(); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.activeElement.click(); }
+    });
+
+    const initial = location.hash.replace('#','');
+    if (['sobre','proyectos','habilidades','contacto'].includes(initial)) {
+      activateTab(initial);
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
